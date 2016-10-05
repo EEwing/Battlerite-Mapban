@@ -14,3 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/mapbans/{mapBanSession}', 'HomeController@enterSession');
+Route::get('/mapbans/{mapBanSession}/view', 'HomeController@viewSession');
+Route::post('/mapbans/{mapBanSession}/chooseTeam', 'HomeController@chooseTeam');
+Route::post('/mapbans/{mapBanSession}/banMap', 'HomeController@banMap');
+
+Route::group(['middleware' => ['web', 'auth']], function(){
+    Route::get('/admin', 'AdminController@index');
+    Route::post('/admin/storeMap', 'AdminController@storeMap');
+
+    Route::post('/storeMapBanSession', 'HomeController@storeSession');
+
+    Route::get('/create', 'HomeController@createSession');
+});
