@@ -3,10 +3,11 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Console\Scheduling\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MapBanned implements ShouldBroadcast
+class MapBanned extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -33,6 +34,6 @@ class MapBanned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['map_banned.'.$this->mapBan->id];
+        return ['map_banned_'.$this->mapBan->id];
     }
 }
