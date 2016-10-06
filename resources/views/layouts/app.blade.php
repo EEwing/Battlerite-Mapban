@@ -14,6 +14,7 @@
     <link href="/css/app.css" rel="stylesheet">
 
     <script src="/js/app.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!--<script src="//js.pusher.com/2.2/pusher.min.js"></script>-->
     <!-- Scripts -->
 
