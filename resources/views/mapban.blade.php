@@ -79,7 +79,7 @@
             $.post(baseLink + '/banMap', {
                 map_id: $this.data('id')
             }).done(function(data) {
-                console.log('map ban sent');
+                console.log('map ban sent: ' + data);
             }).fail(printData);
         });
         function printData(data) {
