@@ -74,10 +74,12 @@
             window.location.href = baseLink;
         });
         $('.mapItem').click(function() {
+            console.log('sending map ban');
             $this = $(this);
             $.post(baseLink + '/banMap', {
                 map_id: $this.data('id')
             }).done(function(data) {
+                console.log('map ban sent');
             }).fail(printData);
         });
         function printData(data) {
