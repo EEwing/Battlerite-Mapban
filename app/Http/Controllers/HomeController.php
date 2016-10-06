@@ -63,12 +63,14 @@ class HomeController extends Controller
         return redirect('/mapbans/' . $mapBanSession->id . "/view");
     }
 
-    public function viewSession(Request $request, MapBanSession $mapBanSession) {
-        if(!$request->session()->has($mapBanSession->id . '-team')) {
-            return redirect('/mapbans/' . $mapBanSession->id);
+    public function viewSession(Request $request, MapBanSession $mapban) {
+        if(!$request->session()->has($mapban->id . '-team')) {
+            return redirect('/mapbans/' . $mapban->id);
         }
         $maps = Map::all();
-        return view('mapban')->with(['mapban' => $mapBanSession, 'maps' => $maps, 'team' => session($mapBanSession->id . '-team')]);
+        $team = session($mapban->id.'-team');
+        $banned_maps = MapBan::where('map_ban_session_id', '=', $mapban->id);
+        return view('mapban', compact('mapban', 'maps', 'team', 'banned_maps'));
     }
 
     public function banMap(Request $request, MapBanSession $mapBanSession) {

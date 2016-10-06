@@ -3,13 +3,13 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Console\Scheduling\Event;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MapBanned extends Event implements ShouldBroadcast
+class MapBanned implements ShouldBroadcast
 {
-    use SerializesModels;
+    use InteractsWithSockets, SerializesModels;
 
     public $map;
     public $mapBan;
@@ -24,7 +24,7 @@ class MapBanned extends Event implements ShouldBroadcast
         $this->map = $map;
         $this->mapBan = $mapBan;
 
-        //$this->dontBroadcastToCurrentUser();
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**

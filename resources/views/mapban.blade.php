@@ -2,24 +2,18 @@
 
 @section('header')
     <script>
-        /*
-        Pusher.logToConsole = true;
-        var pusher = new Pusher('60ce128c541ef9b52500', {
-            encrypted: true
-        });
-
-        var channel = pusher.subscribe('map_banned_{{$mapban->id}}');
-        channel.bind('App\Events\MapBanned', function(data) {
-            console.log("EVENT FIRED: " + data);
-        });
-        */
         $(document).ready(function() {
             console.log("setting up listener");
             Echo.channel('map_banned_{{$mapban->id}}')
                     .listen('MapBanned', event => {
                         console.log("New Echo Event: " + event);
+                        console.log(event);
+                        var map = $('#map-' + event.map.id);
+                        console.log(map);
+                        var overlay = map.find('.cross-out');
+                        console.log(overlay);
+                        overlay.fadeIn();
                     });
-            //pusher.connect();
         });
     </script>
 @endsection
@@ -29,6 +23,13 @@
         .spaced {
             padding-left: 40px;
             padding-right:40px;
+        }
+        .cross-out {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:100%;
+            height:100%;
         }
     </style>
     <div class="container">
@@ -55,9 +56,12 @@
 
             <div class="col-xs-8 col-xs-offset-2">
                 @foreach($maps as $map)
-                    <div class="col-xs-6 mapItem" data-id="{{$map->id}}">
+                    <div class="col-xs-6 mapItem" id="map-{{$map->id}}" data-id="{{$map->id}}">
                         <h3>{{$map->name}}</h3>
-                        <img src="{{$map->picture}}" height="200px" />
+                        <div class="col-xs-12">
+                            <img src="{{$map->picture}}" height="200px" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out" style="display:none" />
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -74,11 +78,6 @@
             $.post(baseLink + '/banMap', {
                 map_id: $this.data('id')
             }).done(function(data) {
-                if(data == "success") {
-                    console.log('returned successfully');
-                } else {
-                    console.log('ERROR: ' + data);
-                }
             }).fail(printData);
         });
         function printData(data) {
