@@ -24,7 +24,7 @@
 
             <div class="col-xs-12">
                 <div class="col-xs-12">
-                    <div class="col-xs-10 col-xs-offset-1 text-center">
+                    <div class="col-xs-6 col-xs-offset-3 text-center">
                         <h1>{{$mapban->chosenMap->name}}</h1>
                         <img src="{{$mapban->chosenMap->picture}}" width="100%">
                     </div>
