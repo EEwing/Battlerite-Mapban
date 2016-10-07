@@ -34,7 +34,7 @@
                         <div class="col-xs-4 mapItem" id="map-{{$map->id}}" data-id="{{$map->id}}">
                             <h3>{{$map->name}}</h3>
                             <div class="col-xs-12">
-                                <img src="{{$map->picture}}" height="200px" />
+                                <img src="{{$map->picture}}" width="100%" />
                                 @if($mapban->bans->contains($map))
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out"/>
                                 @else
