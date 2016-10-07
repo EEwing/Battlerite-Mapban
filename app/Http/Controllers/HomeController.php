@@ -52,6 +52,9 @@ class HomeController extends Controller
     }
 
     public function enterSession(MapBanSession $mapBanSession) {
+        if($mapBanSession->finished) {
+            return redirect('/mapbans/'.$mapBanSession->id.'/results');
+        }
         return view('mapban_enter')->with(['mapban' => $mapBanSession]);
     }
 
@@ -59,21 +62,29 @@ class HomeController extends Controller
         $this->validate($request, [
             'team' => 'required'
         ]);
-        session([$mapBanSession->id . '-team' => $request->team]);
+        if(!is_numeric($request->team)) {
+            return redirect('/mapbans/'.$mapBanSession->id);
+        }
+        session([$mapBanSession->id . '-team' => (int)$request->team]);
         return redirect('/mapbans/' . $mapBanSession->id . "/view");
     }
 
     public function viewSession(Request $request, MapBanSession $mapban) {
+        if($mapban->finished) {
+            return redirect('/mapbans/'.$mapban->id.'/results');
+        }
         if(!$request->session()->has($mapban->id . '-team')) {
             return redirect('/mapbans/' . $mapban->id);
         }
+
         $maps = Map::all();
         $team = session($mapban->id.'-team');
-        $banned_maps = MapBan::where('map_ban_session_id', '=', $mapban->id);
-        return view('mapban', compact('mapban', 'maps', 'team', 'banned_maps'));
+        return view('mapban', compact('mapban', 'maps', 'team'));
     }
 
     public function banMap(Request $request, MapBanSession $mapBanSession) {
+        $team = session($mapBanSession->id."-team", 0);
+
         $this->validate($request, [
             'map_id' => 'required',
         ]);
@@ -86,21 +97,53 @@ class HomeController extends Controller
             return "You must choose a team before banning a map";
         }
 
-        if(session($mapBanSession->id . "-team") == 0) {
+        if($team == 0) {
             return "Spectators can't ban maps";
+        }
+
+        if($mapBanSession->finished) {
+            return "Map banning phase has finished!";
+        }
+
+        if($team != $mapBanSession->current_team) {
+            return "It is not your team's turn to ban!";
         }
 
         $ban = new MapBan();
         $ban->map_id = $request->map_id;
         $ban->map_ban_session_id = $mapBanSession->id;
         $ban->banned_by = session($mapBanSession->id . "-team");
-        //$ban->save();
+        $ban->save();
+
+        $mapBanSession->fresh();
+        $mapCount = Map::all()->count();
+        $bansCount = $mapBanSession->bans()->count();
+
+        if($bansCount >= $mapCount-1) {
+            $mapBanSession->finished = 1;
+        }
+
+        if($team == 1) {
+            $mapBanSession->current_team = 2;
+        } else {
+            $mapBanSession->current_team = 1;
+        }
+
+        $mapBanSession->save();
 
         $map = Map::where('id', '=', $ban->map_id)->first();
-        $mapBan = MapBanSession::where('id', '=', $ban->map_ban_session_id)->first();
 
-        event(new MapBanned($map, $mapBan));
+        event(new MapBanned($map, $mapBanSession));
 
         return "success";
+    }
+
+    public function viewResults(Request $request, MapBanSession $mapban) {
+        if(!$mapban->finished) {
+            return redirect('/mapbans/'.$mapban->id);
+        }
+
+        $maps = Map::all();
+        return view('mapban_results', compact('mapban', 'maps'));
     }
 }

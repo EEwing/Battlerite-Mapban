@@ -14,4 +14,8 @@ class MapBanSession extends Model
     public function bans() {
         return $this->belongsToMany(Map::class, 'map_bans');
     }
+
+    public function chosenMap() {
+        return $this->belongsTo(Map::class, 'chosen_map');
+    }
 }

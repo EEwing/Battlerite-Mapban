@@ -6,13 +6,16 @@
             console.log("setting up listener");
             Echo.channel('map_banned_{{$mapban->id}}')
                     .listen('MapBanned', event => {
-                        console.log("New Echo Event: " + event);
                         console.log(event);
                         var map = $('#map-' + event.map.id);
-                        console.log(map);
                         var overlay = map.find('.cross-out');
-                        console.log(overlay);
                         overlay.fadeIn();
+
+                        if(event.mapBan.current_team == 0) {
+
+                        } else {
+
+                        }
                     });
         });
     </script>
@@ -53,14 +56,19 @@
                 <span class="h3">VS.</span>
                 <span class="h1 spaced">{{$mapban->team2Name}}</span>
             </div>
+            <h3 class="col-xs-12 text-center bg-danger" id="message-box" style="display:none"></h3>
 
-            <div class="col-xs-8 col-xs-offset-2">
+            <div class="col-xs-12">
                 @foreach($maps as $map)
-                    <div class="col-xs-6 mapItem" id="map-{{$map->id}}" data-id="{{$map->id}}">
+                    <div class="col-xs-4 mapItem" id="map-{{$map->id}}" data-id="{{$map->id}}">
                         <h3>{{$map->name}}</h3>
                         <div class="col-xs-12">
                             <img src="{{$map->picture}}" height="200px" />
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out" style="display:none" />
+                            @if($mapban->bans->contains($map))
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out"/>
+                            @else
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out"style="display:none" />
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -79,6 +87,9 @@
             $.post(baseLink + '/banMap', {
                 map_id: $this.data('id')
             }).done(function(data) {
+                if(data != "success") {
+                    $('#message-box').text(data).fadeIn().delay(2000).fadeOut();
+                }
                 console.log('map ban sent: ' + data);
             }).fail(printData);
         });
