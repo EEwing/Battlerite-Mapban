@@ -108,6 +108,12 @@ class HomeController extends Controller
         if($team != $mapBanSession->current_team) {
             return "It is not your team's turn to ban!";
         }
+        $bannedMaps = $mapBanSession->bans;
+        foreach($bannedMaps as $map) {
+            if($map->id == $request->map_id) {
+                return "That map is already banned";
+            }
+        }
 
         $ban = new MapBan();
         $ban->map_id = $request->map_id;
@@ -121,6 +127,12 @@ class HomeController extends Controller
 
         if($bansCount >= $mapCount-1) {
             $mapBanSession->finished = 1;
+            foreach(Map::all() as $map) {
+                if(!$bannedMaps->contains($map)) {
+                    $mapBanSession->chosen_map = $map->id;
+                    break;
+                }
+            }
         }
 
         if($team == 1) {

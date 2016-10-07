@@ -11,6 +11,11 @@
                         var overlay = map.find('.cross-out');
                         overlay.fadeIn();
 
+                        if(event.mapBan.finished) {
+                            window.location.href = "/mapbans/{{$mapban->id}}/results";
+                            return;
+                        }
+
                         if(event.mapBan.current_team == 0) {
 
                         } else {
