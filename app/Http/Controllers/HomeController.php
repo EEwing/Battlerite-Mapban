@@ -120,6 +120,7 @@ class HomeController extends Controller
         $ban->save();
 
         $mapBanSession->fresh();
+        $bannedMaps = $mapBanSession->bans;
         $mapCount = Map::all()->count();
         $bansCount = $mapBanSession->bans()->count();
 

@@ -79,7 +79,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div>c
 
     <script>
         var baseLink = "/mapbans/{{$mapban->id}}";
