@@ -38,15 +38,11 @@ class HomeController extends Controller
     public function storeSession(Request $request) {
         $this->validate($request, [
             'team1Name' => 'required|max:25',
-            'team2Name' => 'required|max:25',
-            'team1Logo' => 'url',
-            'team2Logo' => 'url'
+            'team2Name' => 'required|max:25'
         ]);
         $mb_session = new MapBanSession();
         $mb_session->team1Name = $request->team1Name;
-        $mb_session->team1Logo = $request->team1Logo;
         $mb_session->team2Name = $request->team2Name;
-        $mb_session->team2Logo = $request->team2Logo;
         $mb_session->owner()->associate(Auth::user());
         $mb_session->save();
 
