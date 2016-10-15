@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/layout.css" rel="stylesheet">
 
     <script src="/js/app.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -40,9 +41,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <a class="navbar-brand" href="#"><span><img src="/images/prlicon.png" height="100%" /></span> PRL Mapbans</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -52,24 +51,24 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right slant">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li class="unslant"><a href="{{ url('/login') }}"><span>Login</span></a></li>
+                            <li class="unslant"><a href="{{ url('/register') }}"><span>Register</span></a></li>
                         @else
-                            <li><a href="/create">Create New Ban</a></li>
+                            <li class="unslant"><a href="/create"><span>Create New Ban</span></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <div class="unslant"><span>{{ Auth::user()->name }}</span> <span class="caret"></span></div>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu unslant" role="menu">
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <span>Logout</span>
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

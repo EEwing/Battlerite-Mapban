@@ -17,33 +17,36 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 text-center">
-                <span class="h1 spaced">{{$mapban->team1Name}}</span>
-                <span class="h3">VS.</span>
-                <span class="h1 spaced">{{$mapban->team2Name}}</span>
+                <h1>YOU'VE SELECTED</h1>
             </div>
 
             <div class="col-xs-12">
                 <div class="col-xs-12">
-                    <div class="col-xs-6 col-xs-offset-3 text-center">
+                    <div class="col-xs-6 col-xs-offset-3 text-center dark-ui">
                         <h1>{{$mapban->chosenMap->name}}</h1>
                         <img src="{{$mapban->chosenMap->picture}}" width="100%">
                     </div>
                 </div>
-                @foreach($maps as $map)
-                    @if($map->id != $mapban->chosenMap->id)
-                        <div class="col-xs-4 mapItem" id="map-{{$map->id}}" data-id="{{$map->id}}">
-                            <h3>{{$map->name}}</h3>
-                            <div class="col-xs-12">
-                                <img src="{{$map->picture}}" width="100%" />
-                                @if($mapban->bans->contains($map))
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out"/>
-                                @else
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Red_X_Freehand.svg" class="cross-out"style="display:none" />
-                                @endif
+                <div class="col-xs-5">
+                    <h2 class="selected dark-ui text-center">{{$mapban->team1Name}}</h2>
+                    @foreach($mapban->bans()->where('banned_by', '=', 1)->get() as $map)
+                        <div class="col-xs-10 pull-left">
+                            <div class="mapItem dark-ui">
+                                <h3>{{$map->name}}</h3>
                             </div>
                         </div>
-                    @endif
-                @endforeach
+                    @endforeach
+                </div>
+                <div class="col-xs-5 pull-right">
+                    <h2 class="selected dark-ui text-center">{{$mapban->team2Name}}</h2>
+                    @foreach($mapban->bans()->where('banned_by', '=', 2)->get() as $map)
+                        <div class="col-xs-10 pull-right">
+                            <div class="mapItem dark-ui">
+                                <h3>{{$map->name}}</h3>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

@@ -19,5 +19,6 @@ elixir(mix => {gulp
     mix.sass('app.scss')
         .copy(bootstrapPath + '/fonts', 'public/fonts')
         .copy(bootstrapPath + '/javascripts/bootstrap.min.js', 'public/js')
-        .webpack('app.js');
+        .webpack('app.js')
+        .styles(['layout.css'], 'public/css/layout.css');
 });

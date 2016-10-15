@@ -4,20 +4,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2>Create New Map Ban</h2>
-
                 <form method="POST" action="/storeMapBanSession">
-                    <h2>Team 1:</h2>
-                    <div class="form-group">
-                        <label for="team1Name">Team 1 Name</label>
-                        <input type="text" id="team1Name" class="form-control" name="team1Name" placeholder="Team Name" />
+                    <div class="ban-settings">
+                        <h3>Create New Map Ban</h3>
+                        <hr />
+
+                            <div class="form-group row">
+                                <label for="team1Name" class="col-xs-2 col-form-label">Team 1</label>
+                                <div class="col-xs-10">
+                                    <input type="text" id="team1Name" class="form-control" name="team1Name" placeholder="Team Name" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="team2Name" class="col-xs-2 col-form-label">Team 2</label>
+                                <div class="col-xs-10">
+                                    <input type="text" id="team2Name" class="form-control" name="team2Name" placeholder="Team Name" />
+                                </div>
+                            </div>
                     </div>
-                    <h2>Team 2:</h2>
-                    <div class="form-group">
-                        <label for="team2Name">Team Name</label>
-                        <input type="text" id="team1Name" class="form-control" name="team2Name" placeholder="Team Name" />
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Create New Map Ban" />
+                    <input type="submit" class="btn btn-default col-xs-4 pull-right" value="Create" />
                 </form>
             </div>
         </div>
