@@ -4,9 +4,11 @@
     <script>
         var stage = {{$mapban->stage}};
         var current_team = {{$mapban->current_team}};
-        var statusBox;
+        var statusBox, team1, team2;
         $(document).ready(function() {
             statusBox = $('#status');
+            team1 = $('#left-team-name').text();
+            team2 = $('#right-team-name').text();
             console.log("setting up listener");
             Echo.channel('map_ban_{{$mapban->id}}')
                     .listen('MapBanned', event => {
@@ -15,7 +17,7 @@
                         map.addClass('banned');
 
                         if(event.mapban.finished) {
-                            window.location.href = "/mapban/{{$mapban->id}}/results";
+                            window.location.href = "/mapbans/{{$mapban->id}}/results";
                             return;
                         }
 
@@ -56,11 +58,20 @@
                 case 0:
                     break;
                 case 1:
-                    if(current_team == {{$team}}) {
-                        statusBox.text('Choose a map to ban!');
+                    if({{$team}} == 0) {
+                        if(current_team == 1) {
+                            statusBox.text(team1 + "'s turn to ban a map");
+                        } else {
+                            statusBox.text(team2 + "'s turn to ban a map");
+                        }
                     } else {
-                        statusBox.text('Waiting for opponent to choose map');
+                        if(current_team == {{$team}}) {
+                            statusBox.text('Choose a map to ban!');
+                        } else {
+                            statusBox.text('Waiting for opponent to choose map');
+                        }
                     }
+
                     break;
             }
         }
