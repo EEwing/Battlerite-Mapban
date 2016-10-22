@@ -41,7 +41,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="#"><span><img src="/images/prlicon.png" height="100%" /></span> PRL Mapbans</a>
+                    <a class="navbar-brand" href="/"><span><img src="/images/prlicon.png" height="100%" /></span> PRL Mapbans</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
