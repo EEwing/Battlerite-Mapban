@@ -212,4 +212,20 @@ body {
     background-color: red;
     box-shadow: 5px 5px 5px darkred;
 }
+
+.list-group-item {
+    background-color: #7F7F7F !important;
+    border: 1px solid #333 !important;
+    color: #ddd !important;
+}
+.list-group-item:hover {
+    background-color: #333 !important;
+}
+
+.bright-ui {
+    background-color: #f9b200;
+    border-radius: 10px;
+    color: #333;
+    padding: 10px;
+}
 /*# sourceMappingURL=layout.css.map */

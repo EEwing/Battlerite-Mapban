@@ -53,31 +53,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right slant">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li class="unslant"><a href="{{ url('/login') }}"><span>Login</span></a></li>
-                            <li class="unslant"><a href="{{ url('/register') }}"><span>Register</span></a></li>
-                        @else
-                            <li class="unslant"><a href="/create"><span>Create New Ban</span></a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    <div class="unslant"><span>{{ Auth::user()->name }}</span> <span class="caret"></span></div>
-                                </a>
-
-                                <ul class="dropdown-menu unslant" role="menu">
-                                    <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            <span>Logout</span>
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
+                        <li class="unslant"><a href="/create"><span>Create New Ban</span></a></li>
+                        </li>
                     </ul>
                 </div>
             </div>
