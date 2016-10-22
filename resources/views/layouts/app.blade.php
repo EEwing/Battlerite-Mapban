@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/layout.css" rel="stylesheet">
+    <link href="{{ elixir('css/layout.css') }}" rel="stylesheet">
 
     <script src="/js/app.js"></script>
     <script src="/js/bootstrap.min.js"></script>
