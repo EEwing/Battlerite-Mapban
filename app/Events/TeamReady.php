@@ -3,15 +3,17 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MapBanned implements ShouldBroadcast
+class TeamReady implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $map;
+    public $team;
     public $mapban;
 
     /**
@@ -19,9 +21,9 @@ class MapBanned implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($map, $mapban)
+    public function __construct($team, $mapban)
     {
-        $this->map = $map;
+        $this->team = $team;
         $this->mapban = $mapban;
     }
 

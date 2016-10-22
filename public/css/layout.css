@@ -19,6 +19,7 @@
 
 body {
     background-color: #7F7F7F;
+    color: #ddd;
 }
 
 .panel, .panel-heading {
@@ -95,7 +96,6 @@ body {
     background-color: #333;
     color: #ddd;
     border: 0;
-    margin: 20px;
     font-size: 20px;
 }
 
@@ -179,5 +179,37 @@ body {
 
 .selected {
     color: #f9b200;
+}
+
+.manage-group {
+    margin-top: 100px;
+}
+
+.manage-group,
+.manage-group > div {
+    background-color: #333;
+    border-color: #f9b200;
+}
+
+.manage-group input {
+    background-color: #999;
+    width: 100%;
+}
+
+#left-team-container .btn,
+#left-team-container .dark-ui,
+#right-team-container .btn,
+#right-team-container .dark-ui{
+    width: 100%;
+}
+
+#left-team-container span.ready {
+    background-color: blue;
+    box-shadow: -5px 5px 5px darkblue;
+}
+
+#right-team-container span.ready {
+    background-color: red;
+    box-shadow: 5px 5px 5px darkred;
 }
 /*# sourceMappingURL=layout.css.map */

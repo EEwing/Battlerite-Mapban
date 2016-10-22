@@ -11,15 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -31,23 +22,8 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function createSession() {
-        return view('createSession');
-    }
 
-    public function storeSession(Request $request) {
-        $this->validate($request, [
-            'team1Name' => 'required|max:25',
-            'team2Name' => 'required|max:25'
-        ]);
-        $mb_session = new MapBanSession();
-        $mb_session->team1Name = $request->team1Name;
-        $mb_session->team2Name = $request->team2Name;
-        $mb_session->owner()->associate(Auth::user());
-        $mb_session->save();
 
-        return redirect('/mapbans/' . $mb_session->id);
-    }
 
     public function enterSession(MapBanSession $mapBanSession) {
         if($mapBanSession->finished) {
@@ -80,8 +56,8 @@ class HomeController extends Controller
         return view('mapban', compact('mapban', 'maps', 'team'));
     }
 
-    public function banMap(Request $request, MapBanSession $mapBanSession) {
-        $team = session($mapBanSession->id."-team", 0);
+    public function banMap(Request $request, MapBanSession $mapBanSession, $token) {
+        $team = $mapBanSession->getTeamFromToken($token);
 
         $this->validate($request, [
             'map_id' => 'required',
@@ -89,10 +65,6 @@ class HomeController extends Controller
 
         if(!Auth::check()) {
             return "You must be logged in to ban a map";
-        }
-
-        if(!$request->session()->has($mapBanSession->id . "-team")) {
-            return "You must choose a team before banning a map";
         }
 
         if($team == 0) {
@@ -116,7 +88,7 @@ class HomeController extends Controller
         $ban = new MapBan();
         $ban->map_id = $request->map_id;
         $ban->map_ban_session_id = $mapBanSession->id;
-        $ban->banned_by = session($mapBanSession->id . "-team");
+        $ban->banned_by = $team;
         $ban->save();
 
         $mapBanSession = $mapBanSession->fresh();

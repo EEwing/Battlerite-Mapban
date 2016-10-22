@@ -26,8 +26,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function mapBanSession() {
-        return $this->hasMany(MapBanSession::class);
-    }
 }

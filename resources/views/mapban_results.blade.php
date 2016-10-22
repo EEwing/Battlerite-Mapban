@@ -16,10 +16,9 @@
     </style>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 text-center banContainer">
                 <h1>YOU'VE SELECTED</h1>
             </div>
-
             <div class="col-xs-12">
                 <div class="col-xs-12">
                     <div class="col-xs-6 col-xs-offset-3 text-center dark-ui">
