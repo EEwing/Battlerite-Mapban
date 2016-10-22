@@ -49,7 +49,7 @@ class MapBanController extends Controller
     public function viewTeam(MapBanSession $mapban, $token) {
 
         if($mapban->finished) {
-            return $this->viewResults();
+            return redirect('/view/'.$mapban->id.'/results');
         }
 
         $team = 0;
