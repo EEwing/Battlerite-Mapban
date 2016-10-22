@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $mapbans = MapBanSession::limit(20)->get();
+        $mapbans = MapBanSession::limit(20)->orderBy('created_at', 'desc')->get();
         return view('home', compact('mapbans'));
     }
 }
