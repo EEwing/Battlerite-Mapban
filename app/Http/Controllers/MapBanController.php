@@ -48,6 +48,10 @@ class MapBanController extends Controller
 
     public function viewTeam(MapBanSession $mapban, $token) {
 
+        if($mapban->finished) {
+            return $this->viewResults();
+        }
+
         $team = 0;
 
         if($mapban->team1Token == $token) {
