@@ -38,6 +38,14 @@
                             default:
                                 break;
                         }
+                        if((1 == {{$team}}) && event.mapban.team1Ready) {
+                            statusBox.text('Waiting for opponent to Ready');
+                        } else if((2 == {{$team}}) && event.mapban.team2Ready) {
+                            statusBox.text('Waiting for opponent to Ready');
+                        }
+                        if(event.mapban.stage != stage) {
+                            stage = event.mapban.stage;
+                        }
                         updateStage();
                     });
         });
@@ -56,6 +64,7 @@
             console.log('Updating stage: ' + stage + ' and ' + current_team);
             switch (stage) {
                 case 0:
+
                     break;
                 case 1:
                     if({{$team}} == 0) {
