@@ -150,4 +150,13 @@ class MapBanController extends Controller
         return "success";
     }
 
+    public function viewResults(MapBanSession $mapban) {
+        if(!$mapban->finished) {
+            return redirect('/view/'.$mapban->id);
+        }
+
+        $maps = Map::all();
+        return view('mapban_results', compact('mapban', 'maps'));
+    }
+
 }

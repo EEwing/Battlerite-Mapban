@@ -16,14 +16,11 @@ Auth::routes();
 Route::group(['middleware' => ['web']], function(){
 
     Route::get('/', 'HomeController@index');
-    Route::get('/mapbans/{mapBanSession}', 'HomeController@enterSession');
-    Route::get('/mapbans/{mapban}/view', 'HomeController@viewSession');
-    Route::get('/mapbans/{mapban}/results', 'HomeController@viewResults');
-    Route::post('/mapbans/{mapBanSession}/chooseTeam', 'HomeController@chooseTeam');
 
     Route::get('/create', 'MapBanController@create');
     Route::get('/manage/{mapban}/{token}', 'MapBanController@manage');
     Route::get('/view/{mapban}', 'MapBanController@spectate');
+    Route::get('/view/{mapban}/results', 'MapBanController@viewResults');
     Route::get('/view/{mapban}/{token}', 'MapBanController@viewTeam');
     Route::post('/view/{mapban}/{token}/ready', 'MapBanController@readyTeam');
     Route::post('/view/{mapban}/{token}/banMap', 'MapBanController@banMap');

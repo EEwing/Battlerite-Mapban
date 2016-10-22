@@ -17,7 +17,7 @@
                         map.addClass('banned');
 
                         if(event.mapban.finished) {
-                            window.location.href = "/mapbans/{{$mapban->id}}/results";
+                            window.location.href = "/view/{{$mapban->id}}/results";
                             return;
                         }
 
